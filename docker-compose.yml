@@ -46,3 +46,38 @@ services:
       - 8080:8080
     networks:
       - intranet
+
+  #
+  # upstreams
+  #
+  public-app-node1:
+    container_name: public-app-node1
+    image: nginx:1.25.0-alpine
+    volumes:
+      - ./config/upstream/public-app-node1.conf:/etc/nginx/nginx.conf
+    networks:
+      - intranet
+
+  public-app-node2:
+    container_name: public-app-node2
+    image: nginx:1.25.0-alpine
+    volumes:
+      - ./config/upstream/public-app-node2.conf:/etc/nginx/nginx.conf
+    networks:
+      - intranet
+
+  private-app-node1:
+    container_name: private-app-node1
+    image: nginx:1.25.0-alpine
+    volumes:
+      - ./config/upstream/private-app-node1.conf:/etc/nginx/nginx.conf
+    networks:
+      - intranet
+
+  private-app-node2:
+    container_name: private-app-node2
+    image: nginx:1.25.0-alpine
+    volumes:
+      - ./config/upstream/private-app-node2.conf:/etc/nginx/nginx.conf
+    networks:
+      - intranet
