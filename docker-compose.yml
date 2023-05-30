@@ -1,0 +1,48 @@
+version: '3.9'
+
+networks:
+  intranet:
+    external: false
+    driver: bridge
+
+services:
+  #
+  # Keycloak
+  #
+  keycloak-db:
+    container_name: keycloak-db
+    image: postgres:13.11
+    environment:
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=keycloak
+      - POSTGRES_DB=keycloak
+    restart: on-failure
+    networks:
+      - intranet
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+  keycloak:
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:21.1
+    volumes:
+      - ./config/keycloak/bank-realm.json:/opt/keycloak/data/import/bank-realm.json:ro
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://keycloak-db:5432/keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=keycloak
+    command: start-dev --import-realm
+    restart: on-failure
+    ports:
+      - 8080:8080
+    networks:
+      - intranet
