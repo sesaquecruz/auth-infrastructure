@@ -6,7 +6,7 @@ This project showcases a secure infrastructure that utilizes the **Apache APISIX
 
 This project contains two services, both of them are replicated across two nodes. Through the API Gateway, each service is associated to one route. The public service is associated to `("/")` and the protected service to `("/api/")`. 
 
-Users attempting to access the protected route are redirected to the login page to perform authentication. They also have the option to create a new account. After successful authentication, the user is redirected to the protected endpoint and granted access. The endpoints respond with messages indicating whether they are public or private.
+Users attempting to access the protected route are redirected to the login page to perform authentication. They also have the option to create a new account. After successful authentication, the user is redirected to the protected endpoint and granted access. The endpoints responses body contains messages indicating whether they are public or private and the node accessed.
 
 - Infrastructure:
 
