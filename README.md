@@ -20,6 +20,12 @@ Users attempting to access the protected route are redirected to the login page 
   <img src="./images/oidc-flow.png" />
 </p>
 
+## Requirements
+
+- Docker
+- Docker Compose
+- A stable internet connection
+
 ## Installation
 
 1. Clone this repository:
