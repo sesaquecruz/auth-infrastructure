@@ -96,7 +96,7 @@ It is fixed creating an alias to the local address `127.0.0.1` named `keycloak`.
 1. To stop and remove the containers, run:
 
 ```
-docker-compose down
+docker compose down
 ```
 
 ## Keycloak Configuration
